@@ -12,10 +12,22 @@ export class AnimateComponent implements AfterViewInit {
   @Input() id: string = "";
   @Input() animation: string = "";
   @Input() durationInSeconds: number = 1;
-  @Input() iterationCount: number = 1;
   @Input() delayInSeconds: number = 0;
   @Input() isManualTrigger: boolean = false;
 
+  _iterationCount: string = "1";
+
+  get iterationCount(): number {
+      return parseInt(this._iterationCount)
+  }
+  @Input() set iterationCount(value: number) {
+    if (value <= 0) {
+      this._iterationCount = "infinite";
+    }
+    else
+      this._iterationCount = value.toString();
+  }
+  
   durInSecs = this.durationInSeconds + "s";
   delInSecs = this.delayInSeconds + "s";
 
@@ -45,7 +57,7 @@ export class AnimateComponent implements AfterViewInit {
     this.durInSecs = this.durationInSeconds + "s";
     this.delInSecs = this.delayInSeconds + "s";
     this.renderer.setStyle(document.documentElement, `--durationInSeconds`, `${this.durInSecs}`, 2);
-    this.renderer.setStyle(document.documentElement, `--iterationCount`, `${this.iterationCount}`, 2);
+    this.renderer.setStyle(document.documentElement, `--iterationCount`, `${this._iterationCount}`, 2);
     this.renderer.setStyle(document.documentElement, `--delayInSeconds`, `${this.delInSecs}`, 2);
   }
 

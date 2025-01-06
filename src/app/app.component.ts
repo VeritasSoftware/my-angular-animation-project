@@ -12,7 +12,7 @@ export class AppComponent {
   title = 'my-angular-animation';
 
   //Animation settings
-  animateId = "testAnimation";
+  animateId = "myAnimation";
   animation = AnimateComponent.slideLeft;
   durationInSeconds = 5;
   isManualTrigger = false;
