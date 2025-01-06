@@ -93,10 +93,10 @@ For eg. When the Search button is clicked, `click` event is fired. The `search` 
 
 ```html
 <animate [id]="'myAnimation'" 
-        [animation]="animation" 
-        [durationInSeconds]="5"
-        [isManualTrigger]="true"
-        #searchResultsAnimation>
+         [animation]="animation" 
+         [durationInSeconds]="5"
+         [isManualTrigger]="true"
+         #searchResultsAnimation>
     <div>My search results content</div>
 </animate>
 ```
@@ -137,9 +137,9 @@ Just enter the animation name in the `animation` property.
 
 ```html
 <animate [id]="'myAnimation'" 
-        [animation]="'slide-right-left'" 
-        [durationInSeconds]="3"
-        [iterationCount]="0">
+         [animation]="'slide-right-left'" 
+         [durationInSeconds]="3"
+         [iterationCount]="0">
     <div>My content</div>
 </animate>
 ```
