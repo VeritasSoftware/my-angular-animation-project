@@ -1,4 +1,4 @@
-# my-angular-animation Angular library
+# my-angular-animation library
 
 ### Commonly used animations for Angular applications
 
