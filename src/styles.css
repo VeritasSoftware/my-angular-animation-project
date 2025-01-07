@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Custom industry standard animation */
+
+.slide-right-left {
+    animation: var(--durationInSeconds) slide-right-left var(--iterationCount) var(--delayInSeconds);
+    animation-fill-mode: forwards;
+    width: 100%;
+}
+
+@keyframes slide-right-left {
+    0% {
+        margin-left: -100%;
+    }
+
+    50% {
+        margin-left: 0%;
+    }
+
+    100% {
+        margin-left: -100%;
+    }
+}
