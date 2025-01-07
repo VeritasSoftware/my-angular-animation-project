@@ -181,7 +181,8 @@
   <animate [id]="'myAnimation'" 
            [animation]="animation" 
            [durationInSeconds]="5"
-           [iterationCount]="0"> 
+           [iterationCount]="0"
+           (onAnimationTriggered)="animationTriggered()"> 
     <div class="content">
       <div class="left-side">
         <svg
