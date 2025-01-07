@@ -68,7 +68,6 @@ export class AppComponent {
   animation = AnimateComponent.slideLeft;
   durationInSeconds = 5;
   iterationCount = 0;
-  isManualTrigger = false;
 
   animationTriggered() {
     console.log("Animation Triggered.")
