@@ -2,7 +2,7 @@
 
 ### Commonly used animations for Angular applications
 
-### Run any custom Industry Standard animation too
+### Run any custom industry standard animation too
 
 This light-weight Angular library provides a component to create commonly used animations in Angular applications.
 
@@ -125,7 +125,7 @@ export class AppComponent {
 | isManualTrigger | Set to true to trigger the animation manually. Default is false. |
 | @ViewChild | Component instance reference to call the `triggerAnimation` method. |
 
-## Run any custom Industry Standard animation
+## Run any custom industry standard animation
 
 You can also run custom animations using the `animate` component.
 
