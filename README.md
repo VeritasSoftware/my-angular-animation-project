@@ -130,6 +130,8 @@ export class AppComponent {
 
 You can also run custom animations using the `animate` component.
 
+Any custom animation that is an **industry standard animation** can be run.
+
 Eg. say your custom animation is `slide-right-left`.
 
 Just enter the animation name in the `animation` property.
@@ -147,6 +149,8 @@ In the above example, the `slide-right-left` animation will be applied to the co
 
 The CSS for the custom animation should be defined in your application's CSS file.
 ```css
+/* Custom industry standard animation */
+
 .slide-right-left {
     animation: var(--durationInSeconds) slide-right-left var(--iterationCount) var(--delayInSeconds);
     animation-fill-mode: forwards;
