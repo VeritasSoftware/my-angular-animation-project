@@ -144,7 +144,7 @@ Just enter the animation name in the `animation` property.
 
 In the above example, the `slide-right-left` animation will be applied to the content inside the `animate` component.
 
-The CSS for the custom animation should be defined in your application's CSS file.
+The CSS for the custom animation should be defined in your application's CSS file (eg. styles.css).
 ```css
 /* Custom industry standard animation */
 
