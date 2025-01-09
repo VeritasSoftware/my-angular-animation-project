@@ -27,7 +27,7 @@ export class AnimateComponent implements AfterViewInit {
     else
       this._iterationCount = value.toString();
   }
-  
+
   durInSecs = this.durationInSeconds + "s";
   delInSecs = this.delayInSeconds + "s";
 
@@ -61,15 +61,20 @@ export class AnimateComponent implements AfterViewInit {
     this.renderer.setStyle(document.documentElement, `--delayInSeconds`, `${this.delInSecs}`, 2);
   }
 
-  removeAllClasses(myElement: ElementRef<any> | undefined) {
-    myElement?.nativeElement.classList.forEach(cls => {
-      this.renderer['removeClass'](this.myElement?.nativeElement, cls);
-    });
+  ngAfterViewInit() {
+    if (!this.isManualTrigger)
+      this.trigger();    
   }
 
   triggerAnimation() {
     this.trigger();
   }
+  
+  private removeAllClasses(myElement: ElementRef<any> | undefined) {
+    myElement?.nativeElement.classList.forEach(cls => {
+      this.renderer['removeClass'](this.myElement?.nativeElement, cls);
+    });
+  }  
 
   private trigger() {
     this.removeAllClasses(this.myElement);
@@ -77,10 +82,5 @@ export class AnimateComponent implements AfterViewInit {
       this.renderer['addClass'](this.myElement?.nativeElement, this.animation);
       this.onAnimationTriggered?.emit();
     }, 0);    
-  }
-
-  ngAfterViewInit() {
-    if (!this.isManualTrigger)
-      this.trigger();    
   }
 }
