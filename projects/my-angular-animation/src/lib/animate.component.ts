@@ -33,7 +33,7 @@ export class AnimateComponent implements AfterViewInit {
 
   onAnimationTriggered = output<void>();
 
-  @ViewChild('myElement') myElement: ElementRef | undefined;
+  @ViewChild('myAnimationElement') myAnimationElement: ElementRef | undefined;
 
   static bounce: string = "bounce";
   static bounceIn: string = "bounce-in";
@@ -69,17 +69,17 @@ export class AnimateComponent implements AfterViewInit {
   triggerAnimation() {
     this.trigger();
   }
-  
-  private removeAllClasses(myElement: ElementRef<any> | undefined) {
-    myElement?.nativeElement.classList.forEach(cls => {
-      this.renderer['removeClass'](this.myElement?.nativeElement, cls);
+
+  private removeAllClasses() {
+    this.myAnimationElement?.nativeElement.classList.forEach(cls => {
+      this.renderer['removeClass'](this.myAnimationElement?.nativeElement, cls);
     });
   }  
 
   private trigger() {
-    this.removeAllClasses(this.myElement);
+    this.removeAllClasses();
     setTimeout(() => {
-      this.renderer['addClass'](this.myElement?.nativeElement, this.animation);
+      this.renderer['addClass'](this.myAnimationElement?.nativeElement, this.animation);
       this.onAnimationTriggered?.emit();
     }, 0);    
   }
