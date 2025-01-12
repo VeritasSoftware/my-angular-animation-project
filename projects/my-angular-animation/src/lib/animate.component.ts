@@ -25,7 +25,7 @@ export class AnimateComponent implements AfterViewInit {
       this._iterationCount = "infinite";
     }
     else
-      this._iterationCount = value.toString();
+      this._iterationCount = parseInt(value.toString()).toString();
   }
 
   durInSecs = this.durationInSeconds + "s";
