@@ -1,63 +1,172 @@
-# MyAngularAnimation
+# my-angular-animation library
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.0.
+### Commonly used animations for Angular applications
 
-## Code scaffolding
+### Run any custom industry standard animation too
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+This light-weight Angular library provides a component to create commonly used animations in Angular applications.
 
+## Installation
+
+You can install the library via NPM.
 ```bash
-ng generate component component-name
+npm i my-angular-animation
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Usage
 
-```bash
-ng generate --help
+You can use the provided `animate` component in your Angular components.
+
+The supported animations are:
+
+<table border="0">
+ <tr>
+    <td>
+<ul>
+<li>bounce</li>
+<li>bounceIn</li>
+<li>fadeIn</li>
+<li>fadeOut</li>
+<li>fadeInOut</li>
+<li>fadeOutIn</li>
+<li>flip</li>
+</ul>
+    </td>
+    <td>
+<ul>
+<li>shake</li>
+<li>slideUp</li>
+<li>slideDown</li>
+<li>slideLeft</li>
+<li>slideRight</li>
+<li>swing</li>
+<li>wobble</li>
+</ul>
+    </td>
+ </tr>
+</table>
+
+Eg. to animate sliding from right to left, you can use the `animate` component with the `slideLeft` animation.
+
+```html
+<animate [id]="animateId" 
+         [animation]="animation" 
+         [durationInSeconds]="durationInSeconds"
+         [iterationCount]="iterationCount"
+         (onAnimationTriggered)="animationTriggered()"> 
+    <div>my content</div>    
+</animate>
+```
+```typescript
+export class AppComponent {
+  title = 'my-angular-animation';
+
+  //Animation settings
+  animateId = "myAnimation";
+  animation = AnimateComponent.slideLeft;
+  durationInSeconds = 5;
+  iterationCount = 0;
+
+  animationTriggered() {
+    console.log("Animation Triggered.")
+  }
+
+}
 ```
 
-## Building
+You can have any markup inside the `animate` component. The `animate` component will animate the content based on the animation specified.
 
-To build the library, run:
+Set the iterationCount to 1 or more to play the animation only once or more. Default is 1. Set it to 0 to play the animation infinitely.
 
-```bash
-ng build my-angular-animation
+This animation will fire automatically when the component is rendered.
+
+### Triggering animation manually
+
+If you want to trigger the animation manually in code, you can set the `isManualTrigger` property to `true`.
+
+And, use a component instance reference (`@ViewChild`) to call the `triggerAnimation` method.
+
+For eg. When the Search button is clicked, `click` event is fired. The `search` event handler method is called which triggers the animation.
+
+```html
+<animate [id]="'myAnimation'" 
+         [animation]="animation" 
+         [durationInSeconds]="5"
+         [isManualTrigger]="true"
+         #searchResultsAnimation>
+    <div>My search results content</div>
+</animate>
+```
+```typescript
+export class AppComponent {
+
+  @ViewChild('searchResultsAnimation') searchResultsAnimation;
+
+  search() {
+    //Load search data
+
+    this.searchResultsAnimation.triggerAnimation();
+  }
+}
 ```
 
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
+### Animate component properties
 
-### Publishing the Library
+| Property | Description |
+| --- | --- |
+| id | Unique identifier for the animation. |
+| animation | The animation to apply. |
+| durationInSeconds | The duration of the animation in seconds. Default is 1. Accepts fractions. |
+| iterationCount | The number of times the animation should play. Default is 1. 0 for infinite. |
+| delayInSeconds | The delay (in seconds) before the animation starts. Default is 0. Accepts fractions.|
+| onAnimationTriggered | The event is fired after the animation has been triggered. |
+| isManualTrigger | Set to true to trigger the animation manually. Default is false. |
+| @ViewChild | Component instance reference to call the `triggerAnimation` method. |
 
-Once the project is built, you can publish your library by following these steps:
+## Run any custom industry standard animation
 
-1. Navigate to the `dist` directory:
-   ```bash
-   cd dist/my-angular-animation
-   ```
+You can also run custom animations using the `animate` component.
 
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
+Eg. say your custom animation is `slide-right-left`.
 
-## Running unit tests
+Just enter the animation name in the `animation` property.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+```html
+<animate [id]="'myAnimation'" 
+         [animation]="'slide-right-left'" 
+         [durationInSeconds]="3"
+         [iterationCount]="0">
+    <div>My content</div>
+</animate>
 ```
 
-## Running end-to-end tests
+In the above example, the `slide-right-left` animation will be applied to the content inside the `animate` component.
 
-For end-to-end (e2e) testing, run:
+The CSS for the custom animation should be defined in your application's CSS file (eg. styles.css).
+```css
+/* Custom industry standard animation */
 
-```bash
-ng e2e
+.slide-right-left {
+    animation: var(--durationInSeconds) slide-right-left var(--iterationCount) var(--delayInSeconds);
+    animation-fill-mode: forwards;
+    width: 100%;
+}
+
+@keyframes slide-right-left {
+    0% {
+        margin-left: -100%;
+    }
+
+    50% {
+        margin-left: 0%;
+    }
+
+    100% {
+        margin-left: -100%;
+    }
+}
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+You can use the `--durationInSeconds`, `--iterationCount` and `--delayInSeconds` CSS variables to set the duration, iteration count and delay for the custom animation.
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+These CSS variables will be set by the `animate` component based on it's `durationInSeconds`, `iterationCount` and `delayInSeconds` properties.

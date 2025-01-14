@@ -1,6 +1,18 @@
 {
   "name": "my-angular-animation",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "Light-weight Angular library provides commonly used animations. Also, run your custom industry standard animations.",
+  "author": "Shantanu",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VeritasSoftware/my-angular-animation-project"
+  },
+  "bugs": {
+    "url": "https://github.com/VeritasSoftware/my-angular-animation-project/issues"
+  },
+  "homepage": "https://github.com/VeritasSoftware/my-angular-animation-project",
+  "keywords": ["angular", "animation", "my-angular-animation", "library", "common animations", "custom animations"],
+  "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^19.0.0",
     "@angular/core": "^19.0.0"
