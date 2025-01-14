@@ -116,12 +116,13 @@ You can use `AnimateSettings` class to set up your animation.
 
 And, call the `triggerAnimationDynamic` method, to run your animation.
 
+This will reset your running animation, if any. Also, it will set the `isManualTrigger` property to `true`;
+
 ```typescript
 export class AnimateSettings {
   animation: string = "";
   durationInSeconds?: number = 1;
-  delayInSeconds?: number = 2;
-  isManualTrigger?: boolean = false;
+  delayInSeconds?: number = 0;
   iterationCount?: number = 1;
 }
 ```
@@ -130,8 +131,7 @@ export class AnimateSettings {
 runDynamicAnimation() {
     let settings: AnimateSettings = {
       animation: AnimateComponent.wobble,
-      durationInSeconds: 3,
-      isManualTrigger: true
+      durationInSeconds: 3
     };
 
     this.searchResultsAnimation.triggerAnimationDynamic(settings);

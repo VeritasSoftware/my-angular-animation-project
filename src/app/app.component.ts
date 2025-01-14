@@ -34,8 +34,7 @@ export class AppComponent {
   runDynamicAnimation() {
     let settings: AnimateSettings = {
       animation: AnimateComponent.wobble,
-      durationInSeconds: 3,
-      isManualTrigger: true
+      durationInSeconds: 3
     };
 
     this.searchResultsAnimation.triggerAnimationDynamic(settings);

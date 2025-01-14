@@ -72,27 +72,20 @@ export class AnimateComponent implements AfterViewInit {
   }
 
   triggerAnimationDynamic(settings: AnimateSettings) {
-    if (settings.isManualTrigger){
-      this.clearAnimateSettings();
+    this.clearAnimateSettings();
 
-      this.setCSSVariables();
-  
-      this.animation = settings.animation;
-      
-      if (settings.delayInSeconds != undefined)
-        this.delayInSeconds = settings.delayInSeconds;    
-      if (settings.durationInSeconds != undefined)
-        this.durationInSeconds = settings.durationInSeconds;
-      if (settings.isManualTrigger != undefined)
-        this.isManualTrigger = settings.isManualTrigger;
-      if (settings.iterationCount != undefined)
-        this.iterationCount = settings.iterationCount;
-  
-      this.trigger();
-    }      
-    else {
-      console.log("Set the isManualTrigger property to true first.");
-    }      
+    this.setCSSVariables();
+
+    this.animation = settings.animation;
+    this.isManualTrigger = true;
+    if (settings.delayInSeconds != undefined)
+      this.delayInSeconds = settings.delayInSeconds;    
+    if (settings.durationInSeconds != undefined)
+      this.durationInSeconds = settings.durationInSeconds;      
+    if (settings.iterationCount != undefined)
+      this.iterationCount = settings.iterationCount;
+
+    this.trigger();     
   }
 
   private setCSSVariables() {
@@ -130,7 +123,6 @@ export class AnimateComponent implements AfterViewInit {
 export class AnimateSettings {
   animation: string = "";
   durationInSeconds?: number = 1;
-  delayInSeconds?: number = 2;
-  isManualTrigger?: boolean = false;
+  delayInSeconds?: number = 0;
   iterationCount?: number = 1;
 }
