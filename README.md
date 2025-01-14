@@ -67,7 +67,7 @@ export class AppComponent {
   animateId = "myAnimation";
   animation = AnimateComponent.slideLeft;
   durationInSeconds = 5;
-  iterationCount = 0;
+  iterationCount = 3;
 
   animationTriggered() {
     console.log("Animation Triggered.")
@@ -82,7 +82,7 @@ Set the iterationCount to 1 or more to play the animation only once or more. Def
 
 This animation will fire automatically when the component is rendered.
 
-### Triggering animation manually
+### Triggering animation
 
 If you want to trigger the animation manually in code, you can set the `isManualTrigger` property to `true`.
 
@@ -112,6 +112,34 @@ export class AppComponent {
 }
 ```
 
+### Triggering animation dynamically
+
+You can use `AnimateSettings` class to set up your animation.
+
+And, call the `triggerAnimationDynamic` method, to run your animation.
+
+```typescript
+export class AnimateSettings {
+  animation: string = "";
+  durationInSeconds?: number = 1;
+  delayInSeconds?: number = 2;
+  isManualTrigger?: boolean = false;
+  iterationCount?: number = 1;
+}
+```
+
+```typescript
+runDynamicAnimation() {
+    let settings: AnimateSettings = {
+      animation: AnimateComponent.wobble,
+      durationInSeconds: 3,
+      isManualTrigger: true
+    };
+
+    this.searchResultsAnimation.triggerAnimationDynamic(settings);
+}
+```
+
 ### Animate component properties
 
 | Property | Description |
@@ -123,7 +151,7 @@ export class AppComponent {
 | delayInSeconds | The delay (in seconds) before the animation starts. Default is 0. Accepts fractions.|
 | onAnimationTriggered | The event is fired after the animation has been triggered. |
 | isManualTrigger | Set to true to trigger the animation manually. Default is false. |
-| @ViewChild | Component instance reference to call the `triggerAnimation` method. |
+| @ViewChild | Component instance reference to call the `triggerAnimation` and `triggerAnimationDynamic` methods. |
 
 ## Run any custom industry standard animation
 

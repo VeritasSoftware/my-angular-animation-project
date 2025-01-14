@@ -1,6 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OutputEmitterRef, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AnimateComponent } from "../../projects/my-angular-animation/src/lib/animate.component";
+import { AnimateComponent, AnimateSettings } from "../../projects/my-angular-animation/src/lib/animate.component";
 
 @Component({
   selector: 'app-root',
@@ -20,7 +20,7 @@ export class AppComponent {
   @ViewChild('searchResultsAnimation') searchResultsAnimation;
 
   animationTriggered() {
-    console.log("Animation Triggered.")
+    console.log("Animation Triggered.");
   }
 
   ngAfterViewInit() {
@@ -29,5 +29,15 @@ export class AppComponent {
 
   triggerAnimation() {
     this.searchResultsAnimation.triggerAnimation();
+  }
+
+  runDynamicAnimation() {
+    let settings: AnimateSettings = {
+      animation: AnimateComponent.wobble,
+      durationInSeconds: 3,
+      isManualTrigger: true
+    };
+
+    this.searchResultsAnimation.triggerAnimationDynamic(settings);
   }
 }

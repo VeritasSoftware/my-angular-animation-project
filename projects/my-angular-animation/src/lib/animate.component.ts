@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, output, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, output, OutputEmitterRef, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'animate',
@@ -24,8 +24,10 @@ export class AnimateComponent implements AfterViewInit {
     if (value <= 0) {
       this._iterationCount = "infinite";
     }
-    else
+    else if (value != undefined)
       this._iterationCount = parseInt(value.toString()).toString();
+    else
+      this._iterationCount = "1";
   }
 
   durInSecs = this.durationInSeconds + "s";
@@ -54,11 +56,7 @@ export class AnimateComponent implements AfterViewInit {
   }
 
   ngOnInit() {    
-    this.durInSecs = this.durationInSeconds + "s";
-    this.delInSecs = this.delayInSeconds + "s";
-    this.renderer.setStyle(document.documentElement, `--durationInSeconds`, `${this.durInSecs}`, 2);
-    this.renderer.setStyle(document.documentElement, `--iterationCount`, `${this._iterationCount}`, 2);
-    this.renderer.setStyle(document.documentElement, `--delayInSeconds`, `${this.delInSecs}`, 2);
+    this.setCSSVariables();
   }
 
   ngAfterViewInit() {
@@ -67,7 +65,51 @@ export class AnimateComponent implements AfterViewInit {
   }
 
   triggerAnimation() {
-    this.trigger();
+    if (this.isManualTrigger)
+      this.trigger();
+    else
+      console.log("Set the isManualTrigger property to true first.");
+  }
+
+  triggerAnimationDynamic(settings: AnimateSettings) {
+    if (settings.isManualTrigger){
+      this.clearAnimateSettings();
+
+      this.setCSSVariables();
+  
+      this.animation = settings.animation;
+      
+      if (settings.delayInSeconds != undefined)
+        this.delayInSeconds = settings.delayInSeconds;    
+      if (settings.durationInSeconds != undefined)
+        this.durationInSeconds = settings.durationInSeconds;
+      if (settings.isManualTrigger != undefined)
+        this.isManualTrigger = settings.isManualTrigger;
+      if (settings.iterationCount != undefined)
+        this.iterationCount = settings.iterationCount;
+  
+      this.trigger();
+    }      
+    else {
+      console.log("Set the isManualTrigger property to true first.");
+    }      
+  }
+
+  private setCSSVariables() {
+    this.durInSecs = this.durationInSeconds + "s";
+    this.delInSecs = this.delayInSeconds + "s";
+    this.renderer.setStyle(document.documentElement, `--durationInSeconds`, `${this.durInSecs}`, 2);
+    this.renderer.setStyle(document.documentElement, `--iterationCount`, `${this._iterationCount}`, 2);
+    this.renderer.setStyle(document.documentElement, `--delayInSeconds`, `${this.delInSecs}`, 2);
+  }
+
+  private clearAnimateSettings() {
+    this.animation = "";
+    this.delayInSeconds = 0;
+    this.durationInSeconds = 1;
+    this.isManualTrigger = false;
+    this.iterationCount = 1;
+    this._iterationCount = "1";
   }
 
   private removeAllClasses() {
@@ -83,4 +125,12 @@ export class AnimateComponent implements AfterViewInit {
       this.onAnimationTriggered?.emit();
     }, 0);    
   }
+}
+
+export class AnimateSettings {
+  animation: string = "";
+  durationInSeconds?: number = 1;
+  delayInSeconds?: number = 2;
+  isManualTrigger?: boolean = false;
+  iterationCount?: number = 1;
 }
