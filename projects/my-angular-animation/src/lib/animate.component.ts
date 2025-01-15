@@ -74,8 +74,6 @@ export class AnimateComponent implements AfterViewInit {
   triggerAnimationDynamic(settings: AnimateSettings) {
     this.clearAnimateSettings();
 
-    this.setCSSVariables();
-
     this.animation = settings.animation;
     this.isManualTrigger = true;
     if (settings.delayInSeconds != undefined)
@@ -84,6 +82,8 @@ export class AnimateComponent implements AfterViewInit {
       this.durationInSeconds = settings.durationInSeconds;      
     if (settings.iterationCount != undefined)
       this.iterationCount = settings.iterationCount;
+
+    this.setCSSVariables();
 
     this.trigger();     
   }
