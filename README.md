@@ -116,9 +116,13 @@ export class AppComponent {
 
 You can use `AnimateSettings` class to set up your animation.
 
-And, call the `triggerAnimationDynamic` method, to run your animation.
+And, call the `triggerAnimationDynamic` method using `@ViewChild`, to run your animation.
 
 This will reset your running animation, if any. Also, it will set the `isManualTrigger` property to `true`;
+
+If you want to override the `onAnimationTriggered` event, you can create a `provider` and inject it into your component.
+
+Then, wire it to a method in your component using `subscribe`.
 
 ```typescript
 export class AnimateSettings {
@@ -126,17 +130,45 @@ export class AnimateSettings {
   durationInSeconds?: number = 1;
   delayInSeconds?: number = 0;
   iterationCount?: number = 1;
+  onAnimationTriggered?: OutputEmitterRef<void>;
 }
 ```
 
 ```typescript
-runDynamicAnimation() {
-    let settings: AnimateSettings = {
-      animation: AnimateComponent.wobble,
-      durationInSeconds: 3
-    };
+@Component({
+  .
+  .
+  providers: [
+    {provide: OutputEmitterRef<void>, useFactory: () => {
+      const output = new(OutputEmitterRef<void>);
+      return output;
+    }}
+  ]
+})
+export class AppComponent {
 
-    this.searchResultsAnimation.triggerAnimationDynamic(settings);
+  constructor(private onAnimationTriggeredDynamic: OutputEmitterRef<void>) {
+    this.onAnimationTriggeredDynamic.subscribe(this.animationTriggeredDynamic);
+  }
+
+  animationTriggeredDynamic() {
+    console.log("Animation Triggered Dynamic.");
+  }  
+
+  search() {
+      //Load search data
+
+      let settings: AnimateSettings = {
+        animation: AnimateComponent.wobble,
+        durationInSeconds: 3,
+        delayInSeconds: 3,
+        iterationCount: 0,
+        onAnimationTriggered: this.onAnimationTriggeredDynamic
+      };
+
+      this.searchResultsAnimation.triggerAnimationDynamic(settings);
+  }
+
 }
 ```
 

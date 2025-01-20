@@ -179,10 +179,11 @@
 
 <main class="main">
   <animate [id]="'myAnimation'" 
-           [animation]="animation" 
+           [animation]="'slide-right-left'" 
            [durationInSeconds]="5"
            [iterationCount]="0"
-           (onAnimationTriggered)="animationTriggered()"> 
+           (onAnimationTriggered)="animationTriggered()"
+           #searchResultsAnimation> 
     <div class="content">
       <div class="left-side">
         <svg
@@ -328,6 +329,7 @@
       </div>
     </div>   
   </animate>
+  <button (click)="runDynamicAnimation()">Click me</button> 
 </main>
 
 

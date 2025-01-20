@@ -82,6 +82,9 @@ export class AnimateComponent implements AfterViewInit {
       this.durationInSeconds = settings.durationInSeconds;      
     if (settings.iterationCount != undefined)
       this.iterationCount = settings.iterationCount;
+    if (settings.onAnimationTriggered != undefined) {
+      this.onAnimationTriggered = settings.onAnimationTriggered;
+    }
 
     this.setCSSVariables();
 
@@ -125,4 +128,5 @@ export class AnimateSettings {
   durationInSeconds?: number = 1;
   delayInSeconds?: number = 0;
   iterationCount?: number = 1;
+  onAnimationTriggered?: OutputEmitterRef<void>;
 }

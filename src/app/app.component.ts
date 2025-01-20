@@ -6,7 +6,13 @@ import { AnimateComponent, AnimateSettings } from "../../projects/my-angular-ani
   selector: 'app-root',
   imports: [RouterOutlet, AnimateComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  providers: [
+    {provide: OutputEmitterRef<void>, useFactory: () => {
+      const output = new(OutputEmitterRef<void>);
+      return output;
+    }}
+  ]
 })
 export class AppComponent {
   title = 'my-angular-animation';
@@ -18,6 +24,10 @@ export class AppComponent {
   isManualTrigger = false;
 
   @ViewChild('searchResultsAnimation') searchResultsAnimation;
+
+  constructor(private onAnimationTriggeredDynamic: OutputEmitterRef<void>) {
+    this.onAnimationTriggeredDynamic.subscribe(this.animationTriggeredDynamic);
+  }
 
   animationTriggered() {
     console.log("Animation Triggered.");
@@ -31,10 +41,17 @@ export class AppComponent {
     this.searchResultsAnimation.triggerAnimation();
   }
 
-  runDynamicAnimation() {
+  animationTriggeredDynamic() {
+    console.log("Animation Triggered Dynamic.");
+  }
+
+  runDynamicAnimation() {    
     let settings: AnimateSettings = {
       animation: AnimateComponent.wobble,
-      durationInSeconds: 3
+      durationInSeconds: 3,
+      delayInSeconds: 3,
+      iterationCount: 0,
+      onAnimationTriggered: this.onAnimationTriggeredDynamic
     };
 
     this.searchResultsAnimation.triggerAnimationDynamic(settings);
