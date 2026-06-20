@@ -4,6 +4,10 @@
 
 ### Run any custom industry standard animation too
 
+|**Packages**|Version|Downloads|
+|---------------------------|:---:|:---:|
+|*my-angular-animation*|[![NPM Version](https://img.shields.io/npm/v/my-angular-animation)](https://www.npmjs.com/package/my-angular-animation)|[![Downloads count](https://img.shields.io/npm/dy/my-angular-animation)](https://www.npmjs.com/package/my-angular-animation)|
+
 This light-weight Angular library provides a component to create commonly used animations in Angular applications.
 
 ![MyAngularAnimation Demo](MyAngularAnimation.gif)
